@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Group13.parking_lot_management.AppTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 s -- in Group13.parking_lot_management.AppTest

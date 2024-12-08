@@ -2,12 +2,12 @@ package Group13.parking_lot_management.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-import Group13.parking_lot_management.model.ParkingHistory;
+import Group13.parking_lot_management.model.*;
 
 public class ParkingHistoryDAO implements DAOInterface<ParkingHistory>{
 
@@ -15,7 +15,7 @@ public class ParkingHistoryDAO implements DAOInterface<ParkingHistory>{
 	@Override
 	public List<ParkingHistory> selectAll() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM ParkingHistory");
+            Query<ParkingHistory> query = session.createQuery("FROM ParkingHistory");
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,4 +59,26 @@ public class ParkingHistoryDAO implements DAOInterface<ParkingHistory>{
 		return false;	
 	}
 
+	public List<ParkingHistory> getByStudentId(String studentId) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Query<ParkingHistory> query = session.createQuery("FROM ParkingHistory t WHERE t.student.student_id=:id", ParkingHistory.class);
+			return query.setParameter("id", studentId).getResultList();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	public ParkingLot getCurrentPosition(Student student) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Query<ParkingLot> query = session.createQuery("SELECT t.parking_lot FROM ParkingHistory t "
+					+ "WHERE t.student=:student AND t.exit_time = NULL", ParkingLot.class);
+			return query.setParameter("student", student).getSingleResult();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	
 }

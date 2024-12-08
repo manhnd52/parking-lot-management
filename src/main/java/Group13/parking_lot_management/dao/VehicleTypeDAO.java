@@ -7,15 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import Group13.parking_lot_management.model.Std_Transaction;
+import Group13.parking_lot_management.model.VehicleType;
 
-public class Std_TransactionDAO implements DAOInterface<Std_Transaction>{
+public class VehicleTypeDAO implements DAOInterface<VehicleType>{
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Std_Transaction> selectAll() {
+	public List<VehicleType> selectAll() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Std_Transaction> query = session.createQuery("FROM Std_Transaction");
+            Query<VehicleType> query = session.createQuery("FROM VehicleType", VehicleType.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -24,9 +23,9 @@ public class Std_TransactionDAO implements DAOInterface<Std_Transaction>{
 	}
 
 	@Override
-	public Std_Transaction getByKey(int id) {
+	public VehicleType getByKey(int id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Std_Transaction.class, id);
+            return session.get(VehicleType.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -34,7 +33,7 @@ public class Std_TransactionDAO implements DAOInterface<Std_Transaction>{
 	}
 
 	@Override
-	public boolean saveOrUpdate(Std_Transaction e) {
+	public boolean saveOrUpdate(VehicleType e) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction tr = session.beginTransaction();
 			session.saveOrUpdate(e);
@@ -47,28 +46,17 @@ public class Std_TransactionDAO implements DAOInterface<Std_Transaction>{
 	}
 
 	@Override
-	public boolean delete(Std_Transaction e) {
+	public boolean delete(VehicleType e) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction tr = session.beginTransaction();
 			session.saveOrUpdate(e);
+			session.delete(e);
 			tr.commit();
 			return true;
 		} catch (Exception er) {
 			er.printStackTrace();
 		} 
-		return false;
-	}
-	
-	public List<Std_Transaction> getByStudentId(String studentId) {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Query<Std_Transaction> query = session.createQuery("FROM Std_Transaction t WHERE t.student.student_id=:id", Std_Transaction.class);
-			return query.setParameter("id", studentId).getResultList();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return false;	
 	}
 
-
-	
 }

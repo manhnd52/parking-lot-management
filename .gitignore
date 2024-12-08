@@ -1,0 +1,31 @@
+# Thư mục build của Maven
+target/
+
+# Thư mục cấu hình của IDE (IntelliJ, Eclipse, Visual Studio Code, v.v.)
+.idea/
+.vscode/
+
+# Tệp cấu hình của Eclipse (có thể bỏ qua nếu không sử dụng Eclipse)
+*.classpath
+*.project
+.settings/
+
+# Tệp cấu hình của IntelliJ IDEA (có thể bỏ qua nếu không sử dụng IntelliJ)
+*.iml
+*.ipr
+*.iws
+
+# Các tệp tin hệ thống của macOS và Windows
+.DS_Store
+Thumbs.db
+
+# Tệp log
+*.log
+
+# Thư mục lưu trữ của Maven Wrapper (nếu có)
+.mvn/
+
+# Các tệp tin tạm của trình soạn thảo (Vim, Emacs, v.v.)
+*.swp
+*.swo
+*.bak

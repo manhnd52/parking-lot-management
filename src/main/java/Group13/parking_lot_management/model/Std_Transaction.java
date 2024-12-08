@@ -62,4 +62,11 @@ public class Std_Transaction {
 		this.student = student;
 	}
 
+	@Override
+	public String toString() {
+		return "Std_Transaction [id=" + id + ", student=" + student + ", amount=" + amount + ", type=" + type
+				+ ", created_at=" + created_at + "]";
+	}
+
+	
 }

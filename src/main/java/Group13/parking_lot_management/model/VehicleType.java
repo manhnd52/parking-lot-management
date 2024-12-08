@@ -17,6 +17,13 @@ public class VehicleType {
 	// Chiem bao nhieu slot trong bai
 	private int size;
 	
+	@Override
+	public String toString() {
+		return "VehicleType [id=" + id + ", name=" + name + ", session_fee=" + session_fee + ", night_fee=" + night_fee
+				+ ", day_fee=" + day_fee + ", size=" + size + "]";
+	}
+
+
 	public VehicleType() {
 		super();
 	}

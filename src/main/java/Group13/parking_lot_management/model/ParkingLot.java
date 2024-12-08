@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.Session;
+
+import Group13.parking_lot_management.dao.HibernateUtil;
+
 
 @Entity
 public class ParkingLot {
@@ -15,7 +19,7 @@ public class ParkingLot {
     private int capacity; 
     private int current_count;  
     
-    @OneToMany(mappedBy = "parkingLot", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parkingLot", fetch = FetchType.EAGER)
     private List<Staff> listStaff;
 
     public ParkingLot() {}
@@ -68,7 +72,9 @@ public class ParkingLot {
 	
     @Override
 	public String toString() {
+    	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 		return "ParkingLot [id=" + id + ", name=" + name + ", capacity=" + capacity + ", current_count=" + current_count
-				+ ", listStaff=" + listStaff.size() + "]";
+				+ ", numberStaff=" + listStaff.size() + "]";
+    	}
 	}
 }

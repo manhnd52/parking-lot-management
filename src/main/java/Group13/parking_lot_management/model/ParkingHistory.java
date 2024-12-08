@@ -31,7 +31,7 @@ public class ParkingHistory {
 		this.student = student;
 		this.vehicle_type = vehicle_type;
 		this.license_plate = license_plate;
-		this.entry_time = entry_time;
+		this.entry_time = new Timestamp(System.currentTimeMillis());
 		this.exit_time = exit_time;
 		this.fee = fee;
 	}
@@ -87,4 +87,13 @@ public class ParkingHistory {
 	public Timestamp getExit_time() {
 		return exit_time;
 	}
+
+	@Override
+	public String toString() {
+		return "ParkingHistory [id=" + id + ", parking_lot=" + parking_lot.getName() + ", student=" + student.getStudent_id() + ", vehicle_type="
+				+ vehicle_type.getName() + ", license_plate=" + license_plate + ", entry_time=" + entry_time + ", exit_time="
+				+ exit_time + ", fee=" + fee + "]";
+	}
+	
+	
 }

@@ -1,4 +1,4 @@
-package Group13.parking_lot_management.dao;
+package dao;
 
 import java.util.List;
 
@@ -7,56 +7,56 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import Group13.parking_lot_management.model.VehicleType;
+import model.VehicleType;
 
 public class VehicleTypeDAO implements DAOInterface<VehicleType>{
 
-	@Override
-	public List<VehicleType> selectAll() {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+    @Override
+    public List<VehicleType> selectAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<VehicleType> query = session.createQuery("FROM VehicleType", VehicleType.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-	}
+    }
 
-	@Override
-	public VehicleType getByKey(int id) {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+    @Override
+    public VehicleType getByKey(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(VehicleType.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-	}
+    }
 
-	@Override
-	public boolean saveOrUpdate(VehicleType e) {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Transaction tr = session.beginTransaction();
-			session.saveOrUpdate(e);
-			tr.commit();
-			return true;
-		} catch (Exception er) {
-			er.printStackTrace();
-		} 
-		return false;
-	}
+    @Override
+    public boolean saveOrUpdate(VehicleType e) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tr = session.beginTransaction();
+            session.saveOrUpdate(e);
+            tr.commit();
+            return true;
+        } catch (Exception er) {
+            er.printStackTrace();
+        }
+        return false;
+    }
 
-	@Override
-	public boolean delete(VehicleType e) {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Transaction tr = session.beginTransaction();
-			session.saveOrUpdate(e);
-			session.delete(e);
-			tr.commit();
-			return true;
-		} catch (Exception er) {
-			er.printStackTrace();
-		} 
-		return false;	
-	}
+    @Override
+    public boolean delete(VehicleType e) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tr = session.beginTransaction();
+            session.saveOrUpdate(e);
+            session.delete(e);
+            tr.commit();
+            return true;
+        } catch (Exception er) {
+            er.printStackTrace();
+        }
+        return false;
+    }
 
 }

@@ -1,72 +1,68 @@
-package Group13.parking_lot_management.model;
+package model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 // Thông tin lịch sử nạp tiền của sinh viên;
 @Entity
 public class Std_Transaction {
-	@Id
-	@GeneratedValue
-	private int id;
-	@ManyToOne
-	@JoinColumn(name = "student_id", nullable = false)
-	private Student student;
-	private int amount;
-	private Boolean type;
-	private Timestamp created_at;
-	
-	public Std_Transaction() {}
+    @Id
+    @GeneratedValue
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+    private int amount;
+    private Boolean type;
+    private Timestamp created_at;
 
-	public Std_Transaction(Student student, int amount, Boolean type, Timestamp created_at) {
-		this.student = student;
-		this.amount = amount;
-		this.type = type;
-		this.created_at = created_at;
-	}
-	
-	
-	public int getId() {
-		return id;
-	}
+    public Std_Transaction() {}
 
-	public int getAmount() {
-		return amount;
-	}
+    public Std_Transaction(Student student, int amount, Boolean type, Timestamp created_at) {
+        this.student = student;
+        this.amount = amount;
+        this.type = type;
+        this.created_at = created_at;
+    }
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
 
-	public Boolean getType() {
-		return type;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setType(Boolean type) {
-		this.type = type;
-	}
+    public int getAmount() {
+        return amount;
+    }
 
-	public Timestamp getCreatedAt() {
-		return created_at;
-	}
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
-	public Student getStudent() {
-		return student;
-	}
+    public Boolean getType() {
+        return type;
+    }
 
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+    public void setType(Boolean type) {
+        this.type = type;
+    }
 
-	@Override
-	public String toString() {
-		return "Std_Transaction [id=" + id + ", student=" + student + ", amount=" + amount + ", type=" + type
-				+ ", created_at=" + created_at + "]";
-	}
+    public Timestamp getCreatedAt() {
+        return created_at;
+    }
 
-	
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    @Override
+    public String toString() {
+        return "Std_Transaction [id=" + id + ", student=" + student + ", amount=" + amount + ", type=" + type
+                + ", created_at=" + created_at + "]";
+    }
+
+
 }

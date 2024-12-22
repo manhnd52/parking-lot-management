@@ -1,24 +1,24 @@
-package Group13.parking_lot_management.model;
+package model;
 
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.hibernate.Session;
 
-import Group13.parking_lot_management.dao.HibernateUtil;
+import dao.HibernateUtil;
 
 
 @Entity
 public class ParkingLot {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;  
-    private String name;  
-    private int capacity; 
-    private int current_count;  
-    
+    private int id;
+    private String name;
+    private int capacity;
+    private int current_count;
+
     @OneToMany(mappedBy = "parkingLot", fetch = FetchType.EAGER)
     private List<Staff> listStaff;
 
@@ -62,19 +62,19 @@ public class ParkingLot {
         this.current_count = current_count;
     }
 
-	public List<Staff> getListStaff() {
-		return listStaff;
-	}
+    public List<Staff> getListStaff() {
+        return listStaff;
+    }
 
-	public void setListStaff(List<Staff> listStaff) {
-		this.listStaff = listStaff;
-	}
-	
+    public void setListStaff(List<Staff> listStaff) {
+        this.listStaff = listStaff;
+    }
+
     @Override
-	public String toString() {
-    	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		return "ParkingLot [id=" + id + ", name=" + name + ", capacity=" + capacity + ", current_count=" + current_count
-				+ ", numberStaff=" + listStaff.size() + "]";
-    	}
-	}
+    public String toString() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return "ParkingLot [id=" + id + ", name=" + name + ", capacity=" + capacity + ", current_count=" + current_count
+                    + ", numberStaff=" + listStaff.size() + "]";
+        }
+    }
 }

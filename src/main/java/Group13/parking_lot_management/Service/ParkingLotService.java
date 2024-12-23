@@ -1,84 +1,189 @@
-package Service;
+package Group13.parking_lot_management.Service;
 
-import dao.ParkingHistoryDAO;
-import dao.ParkingLotDAO;
-import dao.StudentDAO;
-import model.ParkingHistory;
-import model.ParkingLot;
-import model.Student;
-import model.VehicleType;
-
-import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+import Group13.parking_lot_management.Service.ReturnResult.CheckInResult;
+import Group13.parking_lot_management.Service.ReturnResult.StudentOutResult;
+import Group13.parking_lot_management.Service.ReturnResult.VisitorInResult;
+import Group13.parking_lot_management.Service.ReturnResult.VisitorOutResult;
+import Group13.parking_lot_management.dao.ParkingHistoryDAO;
+import Group13.parking_lot_management.dao.ParkingLotDAO;
+import Group13.parking_lot_management.dao.StudentDAO;
+import Group13.parking_lot_management.dao.VehicleTypeDAO;
+import Group13.parking_lot_management.model.ParkingHistory;
+import Group13.parking_lot_management.model.ParkingLot;
+import Group13.parking_lot_management.model.Student;
+import Group13.parking_lot_management.model.VehicleType;
+
 public class ParkingLotService {
-    private ParkingLotDAO parkingLotDAO=new ParkingLotDAO();
-    private ParkingHistoryDAO parkingHistoryDAO=new ParkingHistoryDAO();
-    private StudentDAO studentDAO=new StudentDAO();
+	private ParkingLotDAO parkingLotDAO = new ParkingLotDAO();
+	private ParkingHistoryDAO parkingHistoryDAO = new ParkingHistoryDAO();
+	private StudentDAO studentDAO = new StudentDAO();
+	private VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
 
+	/**
+	 * Trả về số lượng xe đang trong bãi
+	 */
+	public int getCurrentCount(int parkingLotId) {
+		ParkingLot parkingLot = parkingLotDAO.getByKey(parkingLotId);
+		return parkingLot.getCurrent_count();
+	}
+	
+	private int availableSlot(int id) {
+		ParkingLot parkingLot = parkingLotDAO.getByKey(id);
+		return (parkingLot.getCapacity() - parkingLot.getCurrent_count());
+	}
 
-    public int checkslot(int id){
-        return parkingLotDAO.getByKey(id).getCapacity()-
-                parkingLotDAO.getByKey(id).getCurrent_count();
-    }
+	// Các trạng thái có thể có của Check In -> dùng cho các trường hợp khi làm giao diện
+	
+	
+	/**
+	 * Kiểm tra điều kiện lúc xe vào đối với sinh viên
+	 */
+	private CheckInResult checkIn(Student student, VehicleType vehicleType, int parkId) {
+		StudentService studentService = new StudentService();
+		if (availableSlot(parkId) < vehicleType.getSize()) {
+	        return CheckInResult.NO_AVAILABLE_SLOT;
+	    }
+		
+		// Kiểm tra mỗi sinh viên chỉ được gửi một xe
+	    if (studentDAO.getCurrentPosition(student) != null) {
+	        return CheckInResult.ALREADY_PARKING;
+	    }
 
-    public int checkin(Student student, VehicleType vehicleType,int id){
-        StudentService studentService=new StudentService();
-        if(vehicleType.getName().equals("Car")&&checkslot(id)>=3) {
-            if(studentService.checkbalance(student,vehicleType)==1) return 3;
-            else return 0;
-        }else if(!vehicleType.getName().equals("Car")&&checkslot(id)>0) {
-            if(studentService.checkbalance(student,vehicleType)==1) return 1;
-            else return 0;
+	    // Kiểm tra số dư tài khoản
+	    if (!studentService.checkBalance(student, vehicleType)) {
+	        return CheckInResult.INSUFFICIENT_BALANCE;
+	    }
+
+	    return CheckInResult.SUCCESS_IN;
+	    
+	}
+
+	/**
+	 * Ứng dụng tính đa hình -> dùng kiểm tra điều kiện đầu vào cho Khách vãng lai
+	 */
+	private CheckInResult checkIn(VehicleType vehicleType, int parkId) {
+		return availableSlot(parkId) >= vehicleType.getSize() 
+				 ? CheckInResult.SUCCESS_IN 
+				 : CheckInResult.NO_AVAILABLE_SLOT;
+	}
+
+	/**
+	 * Cho xe của STUDENT vào bãi
+	 * 
+	 * @return Thêm vào thành công hay chưa? -> dùng xử lý hiện thông báo trong giao
+	 *         diện
+	 */
+	public CheckInResult studentIn(int parkId, String studentId, String vehicleTypeName, String license_plate) {
+		VehicleType vehicleType = vehicleTypeDAO.getByName(vehicleTypeName);
+		ParkingLot parkingLot = parkingLotDAO.getByKey(parkId);
+		Student student = studentDAO.getByKey(studentId);
+		CheckInResult result = checkIn(student, vehicleType, parkId);
+        if (result != CheckInResult.SUCCESS_IN) {
+            return result; 
         }
-        return 0;
-    }
+        
+		parkingLot.setCurrent_count(parkingLot.getCurrent_count() + vehicleType.getSize());
+		parkingLotDAO.saveOrUpdate(parkingLot);
+		
+		ParkingHistory parkingHistory = new ParkingHistory(parkingLot, student, vehicleType, license_plate);
+		parkingHistoryDAO.insert(parkingHistory);
+		return CheckInResult.SUCCESS_IN;
+	}
 
-    public void insertin(Student student,VehicleType vehicleType,int id){
-        if(checkin(student,vehicleType,id)>0) {
-            ParkingLot parkingLot=parkingLotDAO.getByKey(id);
-            parkingLot.setCurrent_count(parkingLot.getCurrent_count()
-                    +checkin(student,vehicleType,id));
-            if(parkingLotDAO.saveOrUpdate(parkingLot)) {
-                Timestamp entry_time=new Timestamp(Calendar.getInstance().getTime().getTime());
-                ParkingHistory parkingHistory = new ParkingHistory(parkingLotDAO.getByKey(id),
-                        student, vehicleType,new String(),entry_time);
-                parkingHistoryDAO.insert(parkingHistory);
-            }
-        }else if(student==null){
-            Timestamp entry_time=new Timestamp(Calendar.getInstance().getTime().getTime());
-            ParkingHistory parkingHistory=new ParkingHistory(parkingLotDAO.getByKey(id),
-                    student, vehicleType,new String(),entry_time);
-            parkingHistoryDAO.insert(parkingHistory);
+	/**
+	 * Cho xe của KHÁCH VÃNG LAI vào bãi
+	 * 
+	 * @return Vé xe cho khách vãng lai (0: là không là vào bãi không thành công)
+	 */
+	public VisitorInResult visitorIn(int parkId, String vehicleTypeName, String license_plate) {
+		ParkingLot parkingLot = parkingLotDAO.getByKey(parkId);
+		VehicleType vehicleType = vehicleTypeDAO.getByName(vehicleTypeName);
+		CheckInResult result = checkIn(vehicleType, parkId);
+		
+        if (result != CheckInResult.SUCCESS_IN) {
+            return new VisitorInResult(result, 0); 
         }
-    }
+        
+		parkingLot.setCurrent_count(parkingLot.getCurrent_count() + vehicleType.getSize());
+		parkingLotDAO.saveOrUpdate(parkingLot);
+		
+		ParkingHistory parkingHistory = new ParkingHistory(parkingLot, null, vehicleType, license_plate);
+		parkingHistoryDAO.insert(parkingHistory);
+		
+		int ticket = parkingHistory.getId();
+		return new VisitorInResult(result, ticket);
+	}
 
-    public void updateout(ParkingHistory parkingHistory){
-        Timestamp exit_time=new Timestamp(Calendar.getInstance().getTime().getTime());
-        parkingHistory.setExit_time(exit_time);
-        parkingHistory.setFee((exit_time.getHours()>18?parkingHistory.getVehicle_type().getNight_fee():
-                parkingHistory.getVehicle_type().getSession_fee()));
-        if(parkingHistoryDAO.saveOrUpdate(parkingHistory)) {
-            ParkingLot parkingLot=parkingLotDAO.getByKey(parkingHistory.getParking_lot().getId());
-            parkingLot.setCurrent_count(parkingLot.getCurrent_count()
-                    -parkingHistory.getVehicle_type().getSize());
-            if(parkingLotDAO.saveOrUpdate(parkingLot)){
-                if(parkingHistory.getStudent()!=null){
-                    parkingHistory.getStudent().setBalance(parkingHistory.getStudent().getBalance()
-                            -(exit_time.getHours()>18?parkingHistory.getVehicle_type().getNight_fee()
-                            :parkingHistory.getVehicle_type().getSession_fee()));
-                    if (studentDAO.saveOrUpdate(parkingHistory.getStudent()))
-                        System.out.println(parkingHistory.getStudent().getBalance());
-                }else System.out.println("Khach vang lai da thanh toan tien mat");
+	public int getFee(VehicleType vehicleType, Timestamp current_time) {
+		@SuppressWarnings("deprecation")
+		boolean isNightTime = current_time.getHours() > 18;
+		int applicableFee = isNightTime ? vehicleType.getNight_fee() : vehicleType.getSession_fee();
+		return applicableFee;
+	}
 
-            }
+	/**
+	 * Cho sinh viên ra {@return} true/false: thành công/ không tìm thấy sinh viên
+	 * trong bãi
+	 */
+	
+	public StudentOutResult studentOut(String student_id) {
+		ParkingHistory parking = parkingHistoryDAO.getCurrentParking(student_id);
+		if (parking != null) {
+			Timestamp current_time = new Timestamp(Calendar.getInstance().getTime().getTime());
+			parking.setExit_time(current_time);
 
-        }
-    }
+			// Tính phí
+			int applicableFee = getFee(parking.getVehicle_type(), current_time);
+			parking.setFee(applicableFee);
+			parkingHistoryDAO.saveOrUpdate(parking);
 
+			// Cập nhật số vị trí trong bãi đỗ xe
+			ParkingLot parkingLot = parking.getParking_lot();
+			parkingLot.setCurrent_count(parkingLot.getCurrent_count() - parking.getVehicle_type().getSize());
+			parkingLotDAO.saveOrUpdate(parkingLot);
 
+			// Trừ tiền số dư sinh viên
+			Student student = parking.getStudent();
+			StudentService studentService = new StudentService();
+			studentService.reduceBalance(student, applicableFee);
+			return StudentOutResult.SUCCESS_OUT;
+		}
+		return StudentOutResult.NOT_PARKING;
+	}
 
+	/**
+	 * Khách vãng lai ra bãi
+	 * 
+	 * @return phí của khách vãng lai (0 là không tìm thấy mã vẽ)
+	 */
+	public VisitorOutResult visitorOut(int ticketId) {
+		ParkingHistory parking = parkingHistoryDAO.getByKey(ticketId);
+		if (parking == null) {
+			return VisitorOutResult.NOT_FOUND;
+		}
+		
+		if (parking.getExit_time() != null) {
+			return VisitorOutResult.USED_TICKET;
+		}
+			
+		Timestamp current_time = new Timestamp(Calendar.getInstance().getTime().getTime());
+		parking.setExit_time(current_time);
+
+		// Tính phí
+		int applicableFee = getFee(parking.getVehicle_type(), current_time);
+		parking.setFee(applicableFee);
+		parkingHistoryDAO.saveOrUpdate(parking);
+
+		// Cập nhật số vị trí trong bãi đỗ xe
+		ParkingLot parkingLot = parking.getParking_lot();
+		parkingLot.setCurrent_count(parkingLot.getCurrent_count() - parking.getVehicle_type().getSize());
+		parkingLotDAO.saveOrUpdate(parkingLot);
+
+		return VisitorOutResult.SUCCESS_OUT;
+	}
 
 
 }

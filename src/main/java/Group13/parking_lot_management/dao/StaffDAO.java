@@ -2,12 +2,11 @@ package Group13.parking_lot_management.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-import Group13.parking_lot_management.model.Staff;
+import Group13.parking_lot_management.model.*;
 
 public class StaffDAO implements DAOInterface<Staff> {
 
@@ -15,22 +14,22 @@ public class StaffDAO implements DAOInterface<Staff> {
 	@Override
 	public List<Staff> selectAll() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Staff");
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+			Query<Staff> query = session.createQuery("FROM model.Staff");
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public Staff getByKey(int id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Staff.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+			return session.get(Staff.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class StaffDAO implements DAOInterface<Staff> {
 			return true;
 		} catch (Exception er) {
 			er.printStackTrace();
-		} 
+		}
 		return false;
 	}
 
@@ -55,8 +54,8 @@ public class StaffDAO implements DAOInterface<Staff> {
 			return true;
 		} catch (Exception er) {
 			er.printStackTrace();
-		} 
-		return false;	
+		}
+		return false;
 	}
 
 }

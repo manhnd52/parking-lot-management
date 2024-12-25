@@ -2,10 +2,9 @@ package Group13.parking_lot_management.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import Group13.parking_lot_management.model.ParkingLot;
 
@@ -15,22 +14,22 @@ public class ParkingLotDAO implements DAOInterface<ParkingLot> {
 	@Override
 	public List<ParkingLot> selectAll() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM ParkingLot");
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+			Query<ParkingLot> query = session.createQuery("FROM ParkingLot");
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public ParkingLot getByKey(int id) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(ParkingLot.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+			return session.get(ParkingLot.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class ParkingLotDAO implements DAOInterface<ParkingLot> {
 			return true;
 		} catch (Exception er) {
 			er.printStackTrace();
-		} 
+		}
 		return false;
 	}
 
@@ -55,8 +54,8 @@ public class ParkingLotDAO implements DAOInterface<ParkingLot> {
 			return true;
 		} catch (Exception er) {
 			er.printStackTrace();
-		} 
-		return false;	
+		}
+		return false;
 	}
 
 }

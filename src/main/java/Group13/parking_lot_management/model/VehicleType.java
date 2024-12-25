@@ -8,7 +8,7 @@ public class VehicleType {
 	@GeneratedValue
 	private int id;
 	private String name;
-	//Phi gui trong nay
+	// Phi gui trong nay
 	private int session_fee;
 	// Phi luc ra bai la buoi dem
 	private int night_fee;
@@ -16,19 +16,17 @@ public class VehicleType {
 	private int day_fee;
 	// Chiem bao nhieu slot trong bai
 	private int size;
-	
+
 	@Override
 	public String toString() {
 		return "VehicleType [id=" + id + ", name=" + name + ", session_fee=" + session_fee + ", night_fee=" + night_fee
 				+ ", day_fee=" + day_fee + ", size=" + size + "]";
 	}
 
-
 	public VehicleType() {
 		super();
 	}
 
-	
 	public VehicleType(String name, int session_fee, int night_fee, int day_fee, int size) {
 		super();
 		this.name = name;
@@ -37,7 +35,6 @@ public class VehicleType {
 		this.day_fee = day_fee;
 		this.size = size;
 	}
-
 
 	public String getName() {
 		return name;
@@ -75,15 +72,12 @@ public class VehicleType {
 		return id;
 	}
 
-
 	public int getSize() {
 		return size;
 	}
 
-
 	public void setSize(int size) {
 		this.size = size;
 	}
-	
-	
+
 }

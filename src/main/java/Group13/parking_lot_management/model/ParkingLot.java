@@ -8,59 +8,59 @@ import org.hibernate.Session;
 
 import Group13.parking_lot_management.dao.HibernateUtil;
 
-
 @Entity
 public class ParkingLot {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;  
-    private String name;  
-    private int capacity; 
-    private int current_count;  
-    
-    @OneToMany(mappedBy = "parkingLot", fetch = FetchType.EAGER)
-    private List<Staff> listStaff;
 
-    public ParkingLot() {}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private int capacity;
+	private int current_count;
 
-    public ParkingLot(String name, int capacity, int current_count) {
-        this.name = name;
-        this.capacity = capacity;
-        this.current_count = current_count;
-    }
+	@OneToMany(mappedBy = "parkingLot", fetch = FetchType.EAGER)
+	private List<Staff> listStaff;
 
-    public int getId() {
-        return id;
-    }
+	public ParkingLot() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public ParkingLot(String name, int capacity, int current_count) {
+		this.name = name;
+		this.capacity = capacity;
+		this.current_count = current_count;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getCapacity() {
-        return capacity;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getCurrent_count() {
-        return current_count;
-    }
+	public int getCapacity() {
+		return capacity;
+	}
 
-    public void setCurrent_count(int current_count) {
-        this.current_count = current_count;
-    }
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public int getCurrent_count() {
+		return current_count;
+	}
+
+	public void setCurrent_count(int current_count) {
+		this.current_count = current_count;
+	}
 
 	public List<Staff> getListStaff() {
 		return listStaff;
@@ -69,12 +69,12 @@ public class ParkingLot {
 	public void setListStaff(List<Staff> listStaff) {
 		this.listStaff = listStaff;
 	}
-	
-    @Override
+
+	@Override
 	public String toString() {
-    	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		return "ParkingLot [id=" + id + ", name=" + name + ", capacity=" + capacity + ", current_count=" + current_count
-				+ ", numberStaff=" + listStaff.size() + "]";
-    	}
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			return "ParkingLot [id=" + id + ", name=" + name + ", capacity=" + capacity + ", current_count="
+					+ current_count + ", numberStaff=" + listStaff.size() + "]";
+		}
 	}
 }

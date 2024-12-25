@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import Group13.parking_lot_management.Service.ReturnResult.PaymentMethod;
 import Group13.parking_lot_management.model.ParkingHistory;
 import Group13.parking_lot_management.model.ParkingLot;
 import Group13.parking_lot_management.model.Pending;
@@ -80,12 +81,12 @@ public class initData {
 			        Students.add(student11);
 			        Students.add(student12);
 			        
-			        Std_Transaction txn1 = new Std_Transaction(student1, 20000, true, new Timestamp(System.currentTimeMillis()));
-			        Std_Transaction txn2 = new Std_Transaction(student2, 15000, true, new Timestamp(System.currentTimeMillis()));
+			        Std_Transaction txn1 = new Std_Transaction(student1, 20000, PaymentMethod.CASH);
+			        Std_Transaction txn2 = new Std_Transaction(student2, 15000, PaymentMethod.TRANSFER);
 			        session.save(txn1);
 			        session.save(txn2);
 
-			        Pending pending1 = new Pending(student1, 10000, new Timestamp(System.currentTimeMillis()));
+			        Pending pending1 = new Pending(student1, 10000);
 			        session.save(pending1);
 
 			        ParkingHistory history1 = new ParkingHistory(lotA, student1, car, "29A-12345",

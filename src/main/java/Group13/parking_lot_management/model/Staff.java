@@ -2,7 +2,6 @@ package Group13.parking_lot_management.model;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Staff {
 	@Id
@@ -10,15 +9,15 @@ public class Staff {
 	private int id;
 	private String fullname;
 	private String password;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "parkinglot_id", nullable = false)
 	private ParkingLot parkingLot;
-	
+
 	public Staff() {
 		super();
 	}
-	
+
 	public Staff(String fullname, String password, ParkingLot parkingLot) {
 		super();
 		this.fullname = fullname;
@@ -29,19 +28,19 @@ public class Staff {
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int iD) {
-		id= iD;
+		id = iD;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public ParkingLot getParkingLot() {
 		return parkingLot;
 	}

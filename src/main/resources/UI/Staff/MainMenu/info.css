@@ -1,0 +1,9 @@
+.label {
+    -fx-background-color: #3b82f6; /* Màu nền xanh dương */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-size: 16px; /* Kích thước chữ */
+    -fx-padding: 10px 20px; /* Khoảng cách bên trong */
+    -fx-background-radius: 30px; /* Bo góc tròn */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0, 0, 4); /* Hiệu ứng đổ bóng */
+    -fx-alignment: center; /* Căn giữa nội dung */
+}

@@ -1,0 +1,7 @@
+/* Định dạng cho Label hiển thị ngày giờ */
+.label {
+    -fx-text-fill: #757575; /* Màu xám nhạt */
+    -fx-font-size: 14px;    /* Kích thước chữ */
+    -fx-font-family: "Segoe UI", sans-serif; /* Font chữ */
+    -fx-alignment: top-left;  /* Căn giữa nội dung */
+}

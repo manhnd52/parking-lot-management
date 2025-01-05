@@ -1,0 +1,9 @@
+
+.hbox {
+    -fx-spacing: 10px;            /* Khoảng cách giữa các Label */
+    -fx-alignment: center;        /* Canh giữa các phần tử trong HBox */
+    -fx-padding: 5px 15px;        /* Khoảng cách giữa chữ và viền */
+    -fx-border-radius: 15px;      /* Góc bo tròn cho viền */
+    -fx-background-radius: 15px; /* Góc bo tròn cho nền */     /* Canh giữa chữ */
+    -fx-background-color: #007aff;
+}

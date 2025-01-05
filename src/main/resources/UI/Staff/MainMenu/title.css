@@ -1,0 +1,8 @@
+/* Tiêu đề lớn của Bãi đỗ xe và tháng/ngày/năm */
+.label {
+    -fx-text-fill: #2980b9;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-padding: 10px;
+}

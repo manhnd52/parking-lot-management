@@ -1,0 +1,11 @@
+/* Tiêu đề chính (Title) */
+.label-title {
+    -fx-font-size: 28px; /* Kích thước chữ lớn */
+    -fx-font-weight: bold; /* Chữ đậm */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-padding: 15px; /* Khoảng cách bên trong */
+    -fx-background-radius: 10px; /* Bo góc nền */
+    -fx-background-color: linear-gradient(to right, #007bff, #0056b3); /* Nền gradient xanh */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 3); /* Hiệu ứng bóng */
+    -fx-alignment: center; /* Căn giữa nội dung */
+}

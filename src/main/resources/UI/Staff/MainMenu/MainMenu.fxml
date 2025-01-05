@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="898.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab text="MÀN HÌNH CHÍNH">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <Label alignment="TOP_LEFT" layoutX="3.0" layoutY="55.0" prefHeight="60.0" prefWidth="891.0" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #007bff; -fx-padding: 10;" text="QUẢN LÍ BÃI ĐỖ XE">
+                            <font>
+                                <Font name="Arial Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="date" alignment="TOP_LEFT" layoutX="10.0" layoutY="124.0" prefHeight="32.0" prefWidth="252.0" stylesheets="@date.css" text="MONTH/DAY/YEAR" />
+                        <TableView fx:id="tbParking" layoutX="-1.0" layoutY="164.0" prefHeight="306.0" prefWidth="898.0">
+                            <columns>
+                                <TableColumn fx:id="colID" prefWidth="197.60000038146973" text="ID" />
+                                <TableColumn fx:id="colCapacity" prefWidth="249.59991455078125" text="SỐ LƯỢNG TỐI ĐA" />
+                                <TableColumn fx:id="colCurrentCount" prefWidth="271.1999816894531" text="SỐ LƯỢNG HIỆN TẠI" />
+                                <TableColumn fx:id="colName" prefWidth="183.199951171875" text="TÊN BÃI ĐỖ XE" />
+                            </columns>
+                        </TableView>
+                        <Button layoutX="788.0" layoutY="480.0" mnemonicParsing="false" onAction="#btnThem" prefHeight="26.0" prefWidth="95.0" text="THÊM" />
+                  <HBox alignment="CENTER" layoutX="412.0" layoutY="57.0" prefHeight="55.0" prefWidth="406.0" spacing="5.0" stylesheets="@info.css">
+                     <children>
+                              <Label fx:id="nameStaff" prefHeight="42.0" prefWidth="215.0" text="Nguyen Van A" textFill="#fff9f9">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                              </Label>
+                              <Line endX="-45.4000244140625" endY="39.60002899169922" startX="-45.4000244140625" startY="57.40000915527344" stroke="#fffbfb" />
+                              <Label fx:id="idStaff" prefHeight="41.0" prefWidth="107.0" stylesheets="@info.css" text="12345" textFill="#fff8f8">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                              </Label>
+                     </children>
+                  </HBox>
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="DUYỆT NẠP TIỀN">
+            <content>
+                <AnchorPane prefHeight="554.0" prefWidth="860.0">
+                    <children>
+                        <ScrollPane layoutX="1.0" layoutY="119.0" prefHeight="374.0" prefWidth="898.0">
+                            <content>
+                                <TableView fx:id="tbPending" prefHeight="374.0" prefWidth="882.0">
+                                    <columns>
+                                        <TableColumn fx:id="colIDPending" prefWidth="157.5999879837036" text="ID" />
+                                        <TableColumn fx:id="colAmountPending" prefWidth="204.0" text="SỐ TIỀN NẠP" />
+                                        <TableColumn fx:id="colCreatedPending" prefWidth="303.99993896484375" text="THỜI GIAN TẠO" />
+                                        <TableColumn fx:id="colStudent" prefWidth="214.39996337890625" text="MÃ SỐ SINH VIÊN" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </ScrollPane>
+                        <Button layoutX="795.0" layoutY="500.0" mnemonicParsing="false" onAction="#btnDuyet" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: #FFA500;" text="DUYỆT">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Button>
+                        <Label alignment="CENTER" layoutX="162.0" layoutY="25.0" prefHeight="66.0" prefWidth="521.0" stylesheets="@info.css" text="YÊU CẦU NẠP TIỀN">
+                            <font>
+                                <Font name="System Bold Italic" size="28.0" />
+                            </font>
+                        </Label>
+                  <Button layoutX="696.0" layoutY="500.0" mnemonicParsing="false" onAction="#btnBo" prefHeight="29.0" prefWidth="86.0" style="-fx-background-color: #FFA500;" text="BỎ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="798.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnLamMoi" text="REFRESH" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+      <Tab text="LỊCH SỬ RA VÀO">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="919.0">
+               <children>
+                  <ScrollPane layoutX="5.0" layoutY="62.0" prefHeight="428.0" prefWidth="894.0">
+                     <content>
+                        <TableView fx:id="tbParkingHistory" prefHeight="422.0" prefWidth="893.0">
+                          <columns>
+                            <TableColumn fx:id="colIDHistory" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="colEntryTime" prefWidth="153.60000610351562" text="ENTRY_TIME" />
+                              <TableColumn fx:id="colExitTime" prefWidth="164.0" text="EXIT_TIME" />
+                              <TableColumn fx:id="colFee" prefWidth="112.79995727539062" text="FEE" />
+                              <TableColumn fx:id="colLicense" prefWidth="121.5999755859375" text="LICENSE" />
+                              <TableColumn fx:id="colPK_ID" prefWidth="81.5999755859375" text="PK_ID" />
+                              <TableColumn fx:id="colStudentID" prefWidth="97.60009765625" text="STU_ID" />
+                              <TableColumn fx:id="colVID" minWidth="0.0" prefWidth="74.39990234375" text="VID" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+    </tabs>
+</TabPane>

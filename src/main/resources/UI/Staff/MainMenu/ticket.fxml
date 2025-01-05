@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="300.0" stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Title -->
+      <Label layoutX="38.0" layoutY="20.0" prefHeight="27.0" prefWidth="218.0" styleClass="header-label" text="THÔNG TIN VÉ" />
+
+      <!-- Info Section -->
+      <Label layoutX="30.0" layoutY="70.0" styleClass="field-label" text="Thời gian:" />
+      <Label fx:id="timeLB" layoutX="100.0" layoutY="70.0" styleClass="value-label" text="TIME" />
+
+      <Label layoutX="30.0" layoutY="100.0" styleClass="field-label" text="Địa điểm:" />
+      <Label fx:id="locationLB" layoutX="100.0" layoutY="100.0" styleClass="value-label" text="LOCATION" />
+
+      <!-- Ticket Details Section -->
+      <Label layoutX="30.0" layoutY="160.0" styleClass="field-label" text="ID Vé:" />
+      <Label fx:id="idLB" layoutX="100.0" layoutY="160.0" styleClass="value-label" text="ID" />
+
+      <Label layoutX="30.0" layoutY="190.0" prefWidth="63.0" styleClass="field-label" text="Loại xe:" />
+      <Label fx:id="vehicleLB" layoutX="100.0" layoutY="190.0" styleClass="value-label" text="VEHICLE" />
+
+      <!-- Status -->
+      <Label fx:id="tbLB" layoutX="50.0" layoutY="320.0" prefHeight="15.0" prefWidth="191.0" styleClass="status-label" text="" />
+
+      <!-- Print Button -->
+      <Button layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#btnpressed" styleClass="primary-button" text="IN VÉ" />
+   </children>
+</AnchorPane>

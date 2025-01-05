@@ -1,0 +1,72 @@
+/* Trang trí toàn bộ AnchorPane */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #f6d365, #fda085); /* Gradient nền */
+    -fx-padding: 10;
+}
+
+/* Trang trí các nút (Button) */
+.button {
+    -fx-background-color: #ff7f50; /* Màu cam san hô */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 4);
+}
+
+.button:hover {
+    -fx-background-color: #ff4500; /* Đổi màu khi hover */
+    -fx-cursor: hand;
+}
+
+/* Trang trí nhãn (Label) */
+.label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Arial";
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 5;
+}
+
+/* Tiêu đề hoặc các Label quan trọng */
+.title-label {
+    -fx-font-size: 20pt;
+    -fx-text-fill: white;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bolder;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.8, 0, 2);
+}
+
+/* Các TextField */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 12pt;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 5;
+}
+
+/* TableView */
+.table-view {
+    -fx-border-color: #cccccc;
+    -fx-background-color: #ffffff;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f6b93b; /* Màu nền của header */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-color: orange;
+}
+

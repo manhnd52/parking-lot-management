@@ -1,0 +1,54 @@
+/* styles.css */
+
+/* General styling for the entire application */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f4f4f4;
+}
+
+/* Header label styling */
+.header-label {
+    -fx-font-size: 28px; /* Cỡ chữ to hơn */
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+}
+
+/* Field labels (e.g., Thời gian, Địa điểm, ID Vé, etc.) */
+.field-label-large {
+    -fx-font-size: 20px; /* Cỡ chữ to hơn */
+    -fx-font-weight: bold;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Value labels (e.g., TIME, LOCATION, etc.) */
+.value-label-large {
+    -fx-font-size: 20px; /* Cỡ chữ to hơn */
+    -fx-text-fill: #2c3e50;
+}
+
+/* Status label for displaying messages */
+.status-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #e74c3c;
+    -fx-text-alignment: center;
+}
+
+/* Button styling */
+.primary-button {
+    -fx-font-size: 18px; /* Cỡ chữ to hơn */
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #2980b9;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10 5 10;
+}
+
+.primary-button:hover {
+    -fx-background-color: #3498db;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #1e6a8e;
+}
